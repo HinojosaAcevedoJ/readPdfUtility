@@ -19,8 +19,7 @@
     "express-fileupload": "^1.4.0",
     "express-multipart": "^1.0.6",
     "morgan": "^1.10.0",
-    "pdf-parser": "^1.0.5",
-    "pdf2json": "^3.0.1"
+    "pdf-parser": "^1.0.5"
   },
   "devDependencies": {
     "eslint": "^8.27.0",
