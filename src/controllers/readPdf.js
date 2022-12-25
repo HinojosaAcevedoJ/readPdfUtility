@@ -1,9 +1,9 @@
 const pdfParser = require('pdf-parser')
-const fs = require('fs')
+const { UPLOAD_PATH } = process.env
 
 const uploadPdf = file => {
   if (file) {
-    const uploadPath = `/home/nutz/proyectos/readPdfUtility/src/uploads/${file.name}`
+    const uploadPath = `${UPLOAD_PATH}${file.name}`
     file.mv(uploadPath, err => {
       if (err) return false
       return true
@@ -25,11 +25,10 @@ const readPdf = async (req, res) => {
     const isUploaded = setTimeout(async () => {
       const uploaded = await uploadPdf(req.files.pdf)
       return uploaded
-    }, 1000)
+    }, 6000)
     if (isUploaded) {
-      const pdfPATH = `./src/uploads/${req.files.pdf.name}`
-      const dataBuffer = fs.readFileSync(pdfPATH)
-      if (dataBuffer) {
+      const pdfPATH = `${UPLOAD_PATH}${req.files.pdf.name}`
+      setTimeout(function() {
         pdfParser.pdf2json(pdfPATH, (error, pdf) => {
           if (error != null) {
             res.status(500).send({ message: error })
@@ -38,7 +37,7 @@ const readPdf = async (req, res) => {
             res.status(200).send(pdf)
           }
         })
-      }
+      }, 6000);
     } else {
       res.status(500).send({ message: 'Internal Error' })
     }
