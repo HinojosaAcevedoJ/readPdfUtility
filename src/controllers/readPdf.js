@@ -28,7 +28,7 @@ const readPdf = async (req, res) => {
     }, 6000)
     if (isUploaded) {
       const pdfPATH = `${UPLOAD_PATH}${req.files.pdf.name}`
-      setTimeout(function() {
+      setTimeout(() => {
         pdfParser.pdf2json(pdfPATH, (error, pdf) => {
           if (error != null) {
             res.status(500).send({ message: error })
@@ -37,7 +37,7 @@ const readPdf = async (req, res) => {
             res.status(200).send(pdf)
           }
         })
-      }, 6000);
+      }, 6000)
     } else {
       res.status(500).send({ message: 'Internal Error' })
     }
